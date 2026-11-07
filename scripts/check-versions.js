@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // Version-consistency guard. Ponytail declares its version in seven files across
 // five host ecosystems, and every release bumps all of them by hand.
 //

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // ponytail — imports past Claude Code sessions into the band's task ledger, so the board can
 // compare them: cost, agent time, tokens, turns, name and model. Started in the background by
 // `/ponytail band import`; also runs by hand. Sessions already in the ledger are left alone.

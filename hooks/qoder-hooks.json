@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${QODER_PLUGIN_ROOT}/hooks/ponytail-mode-tracker.js\""
+            "command": "bun \"${QODER_PLUGIN_ROOT}/hooks/ponytail-mode-tracker.js\""
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${QODER_PLUGIN_ROOT}/hooks/ponytail-subagent.js\""
+            "command": "bun \"${QODER_PLUGIN_ROOT}/hooks/ponytail-subagent.js\""
           }
         ]
       }

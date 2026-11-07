@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // ponytail — removes state ponytail wrote outside the plugin's own files:
 // the mode flag, the config file, the statusline script copy, the
 // statusLine entry it added to settings.json, and its entries in

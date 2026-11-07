@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // Publish the generated OpenClaw skills (.openclaw/skills/) to ClawHub.
 //
 // ClawHub does not sync from GitHub: each skill is pushed explicitly with the

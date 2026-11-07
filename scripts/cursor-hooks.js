@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // ponytail — install or remove the Cursor hooks (hooks/cursor-hooks.json) in
 // ~/.cursor/hooks.json (default) or <cwd>/.cursor/hooks.json (--project),
 // merging with whatever hooks are already there. Only entries that run one of

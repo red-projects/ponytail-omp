@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // ponytail — codebase map: what already exists, so "reuse first" costs no search.
 //
 // Lists the top-level functions, classes and exports of the project's source files, one line

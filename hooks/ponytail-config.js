@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // ponytail — shared configuration resolver
 //
 // Resolution order for default mode:

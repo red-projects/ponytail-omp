@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // Generate the OpenClaw / ClawHub skill package (.openclaw/skills/) from the
 // canonical skills/. OpenClaw skills are SKILL.md (frontmatter + body), the same
 // format ponytail already uses, with one difference: `description` must be a

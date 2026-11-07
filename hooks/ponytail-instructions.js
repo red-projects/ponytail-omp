@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // Shared Ponytail instruction builder for Claude hooks and Pi extension.
 
 const fs = require('fs');
