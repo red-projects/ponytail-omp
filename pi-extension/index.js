@@ -227,7 +227,8 @@ export default function ponytailExtension(pi) {
     syncStatus(ctx);
   });
 
-  pi.on("before_agent_start", async (event) => {
+  pi.on("before_agent_start", async (event, ctx) => {
+    if (ctx?.agent?.kind === "sub") return;
     if (!currentMode || currentMode === "off") {
       // Clear a stale section when the mode is off so a previous turn does not linger (#953).
       if (event?.systemPromptOptions?.sections) delete event.systemPromptOptions.sections.ponytail;
