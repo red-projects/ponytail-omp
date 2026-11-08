@@ -129,7 +129,7 @@ if (require.main === module) {
         ? 'Removed ponytail hooks from ' + file
         : 'No ponytail hooks in ' + hooksPath(scope));
     } else {
-      console.error('usage: node scripts/cursor-hooks.js install|uninstall [--project]');
+      console.error('usage: bun scripts/cursor-hooks.js install|uninstall [--project]');
       process.exit(1);
     }
   } catch (e) {

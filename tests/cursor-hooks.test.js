@@ -98,7 +98,7 @@ test('cursor hooks template is a valid hooks.json with the two events that can i
   for (const entries of Object.values(config.hooks)) {
     assert.ok(Array.isArray(entries) && entries.length === 1);
     for (const entry of entries) {
-      assert.match(entry.command, /^node "PONYTAIL_DIR\/hooks\/ponytail-[\w-]+\.js"$/, 'plain node call, quoted absolute path');
+      assert.match(entry.command, /^(?:node|bun) "PONYTAIL_DIR\/hooks\/ponytail-[\w-]+\.js"$/, 'plain node or bun call, quoted absolute path');
       assert.doesNotMatch(entry.command, /(^|\s)exec\s|&&|\|\|/, 'must run under cmd, PowerShell and bash alike');
       assert.equal(typeof entry.timeout, 'number');
       const script = entry.command.match(/hooks\/([\w.-]+\.js)/)[1];
@@ -252,8 +252,8 @@ test('installer merges into an existing ~/.cursor/hooks.json and leaves unrelate
   assert.deepEqual(config.hooks.stop, theirs.hooks.stop, 'similarly named user hook must survive install');
   assert.equal(config.hooks.sessionStart[0].command, './hooks/their-session.sh', 'their sessionStart hook stays first and intact');
   assert.equal(config.hooks.sessionStart.length, 2);
-  assert.deepEqual(config.hooks.sessionStart[1], { command: `node "${rootFwd}/hooks/ponytail-activate.js"`, timeout: 15 });
-  assert.deepEqual(config.hooks.beforeSubmitPrompt, [{ command: `node "${rootFwd}/hooks/ponytail-mode-tracker.js"`, timeout: 15 }]);
+  assert.deepEqual(config.hooks.sessionStart[1], { command: `bun "${rootFwd}/hooks/ponytail-activate.js"`, timeout: 15 });
+  assert.deepEqual(config.hooks.beforeSubmitPrompt, [{ command: `bun "${rootFwd}/hooks/ponytail-mode-tracker.js"`, timeout: 15 }]);
 
   // Idempotent: a second install replaces ponytail's entries, never duplicates them.
   result = cli(['install'], env);

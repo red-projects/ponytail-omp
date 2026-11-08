@@ -89,7 +89,7 @@ test('shared hook commands are shell-agnostic (no bash-only exec prefix)', () =>
   assert.ok(commands.length > 0, 'expected at least one shared command entry');
   for (const cmd of commands) {
     assert.doesNotMatch(cmd, /(^|\s)exec\s/, `command must not use the bash-only 'exec' builtin (breaks under PowerShell): ${cmd}`);
-    assert.match(cmd, /^node\s+/, `command must invoke node directly so it runs in both bash and PowerShell: ${cmd}`);
+    assert.match(cmd, /^(?:node|bun)\s+/, `command must invoke node or bun directly so it runs in both bash and PowerShell: ${cmd}`);
     assert.doesNotMatch(cmd, /;\s*exit 0$/, `command must not leave a shell wrapper waiting on node: ${cmd}`);
   }
 });
