@@ -17,6 +17,10 @@ const { getPonytailInstructions, filterSkillBodyForMode } = require("../hooks/po
 export { filterSkillBodyForMode };
 export const readDefaultMode = getDefaultMode;
 export const readQuietStartup = getQuietStartup;
+function isHeadlessWithoutOutput(ctx) {
+  if (ctx?.hasUI === false || ctx?.agent?.kind === "sub") return true;
+  return typeof ctx?.ui?.notify !== "function";
+}
 
 const RUNTIME_MODE_LIST = RUNTIME_MODES.join("|");
 const PONYTAIL_COMMAND_DESCRIPTION = `Set mode: ${RUNTIME_MODE_LIST}. Commands: status, default <mode>`;
@@ -109,6 +113,10 @@ export default function ponytailExtension(pi) {
   };
 
   const sendAlias = (skillName, args, ctx) => {
+    if (isHeadlessWithoutOutput(ctx)) {
+      const commandName = skillName.replace(/^\/skill:/, "/");
+      throw new Error(`Ponytail: ${commandName} requires an interactive UI; headless/no-UI mode has no supported command output path.`);
+    }
     const normalized = String(args || "").trim();
     const message = normalized ? `${skillName} ${normalized}` : skillName;
 
@@ -131,6 +139,9 @@ export default function ponytailExtension(pi) {
       const parsed = parsePonytailCommand(args, configuredDefaultMode, currentMode);
 
       if (parsed.type === "status") {
+        if (isHeadlessWithoutOutput(ctx)) {
+          throw new Error("Ponytail: /ponytail status requires an interactive UI; headless/no-UI mode has no supported command output path.");
+        }
         ctx?.ui?.notify?.(`Ponytail: current ${currentMode} • default ${configuredDefaultMode}`, "info");
         return;
       }

@@ -69,6 +69,18 @@ omp plugin install ponytail@ponytail
 
 omp runs ponytail's Pi extension unchanged, so the ruleset is injected every turn as in Pi (verified with omp 18.6.1). Start a new session after installing.
 
+### Headless and No-UI Mode in OMP
+
+In headless or no-UI environments (`omp -p`, `omp --mode rpc --no-ui`, and subagent sessions), interactive status and alias commands (`/ponytail status`, `/ponytail-help`, `/ponytail-review`, etc.) are not supported because the host provides no interactive UI presentation channel. To prevent silent no-ops, these commands explicitly throw an error that OMP routes through its extension error channel:
+- In print mode (`omp -p`), OMP logs `Extension error (command:<name>): ...` to stderr. Note host limitation: the process exit code remains `0`.
+- In RPC mode (`--mode rpc --no-ui`), OMP emits a `{ type: "extension_error" }` frame without corrupting JSON stdout (the prompt command response retains `success: true`).
+
+An opt-in integration smoke test checking real OMP RPC error frames and clean JSON stdout is provided at `scripts/smoke-headless-rpc.js` (`bun scripts/smoke-headless-rpc.js`).
+
+### Development and Test Prerequisites
+
+- Extension unit tests run with Bun: `bun test --prefix pi-extension`.
+- Root correctness benchmark tests (`bun test tests/*.test.js`, specifically `tests/correctness.test.js`) evaluate code snippets using the host's `python3`. The CSV sum benchmark requires `pandas` (`pip install pandas`); without `pandas` in the host Python environment, `tests/correctness.test.js:99` fails with `ModuleNotFoundError: No module named 'pandas'`.
 ## OpenCode
 
 ```bash
